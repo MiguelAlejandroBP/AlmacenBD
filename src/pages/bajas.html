@@ -1,0 +1,69 @@
+<section class="animate-fade-in">
+    <div style="margin-bottom: 2rem;">
+        <h1>Gestión de Bajas</h1>
+        <p style="color: var(--secondary-color);">Registre productos que deben salir del inventario por daño, pérdida o caducidad.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; align-items: start; flex-wrap: wrap;">
+        <!-- Formulario de Registro -->
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Nueva Baja</h2>
+            <form id="form-baja">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Seleccionar Producto</label>
+                    <select id="baja-producto" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                        <option value="">Cargando productos...</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Motivo de la Baja</label>
+                    <textarea id="baja-motivo" required placeholder="Explique brevemente por qué se da de baja este producto..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; min-height: 80px;"></textarea>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Evidencia Fotográfica</label>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <div id="baja-preview-container" style="width: 60px; height: 60px; border: 2px dashed var(--border-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #f8fafc;">
+                            <span style="font-size: 1.2rem; color: var(--text-muted);">📷</span>
+                        </div>
+                        <div style="flex: 1;">
+                            <input type="file" id="baja-image-file" accept="image/*" style="width: 100%; font-size: 0.8rem;">
+                            <p id="baja-upload-status" style="font-size: 0.75rem; margin-top: 0.3rem; color: var(--primary-color); display: none;">Subiendo evidencia...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.8rem;">
+                    Registrar Baja Definitiva
+                </button>
+            </form>
+        </div>
+
+        <!-- Historial de Bajas -->
+        <div class="card" style="padding: 0; overflow-x: hidden;">
+            <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <h2 style="font-size: 1.25rem;">Historial de Bajas</h2>
+                <div style="position: relative; width: 100%; max-width: 250px;">
+                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.8rem;">🔍</span>
+                    <input type="text" id="bajas-search" placeholder="Filtrar historial..." style="width: 100%; padding: 0.4rem 0.8rem 0.4rem 2rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.8rem;">
+                </div>
+            </div>
+            <div style="max-height: 500px; overflow-y: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                    <thead style="background-color: #F8FAFC; position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);">Fecha</th>
+                            <th style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);">Producto</th>
+                            <th style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);">Motivo</th>
+                            <th style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); text-align: right;">Evidencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bajas-table-body">
+                        <!-- Se llena dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

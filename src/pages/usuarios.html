@@ -1,0 +1,51 @@
+<section class="animate-fade-in">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+            <h1>Gestión de Usuarios</h1>
+            <p style="color: var(--secondary-color);">Administre los niveles de acceso al sistema.</p>
+        </div>
+        <button class="btn btn-primary" id="btn-open-user-modal">+ Registrar Usuario</button>
+    </div>
+
+    <div class="card" style="padding: 0; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead style="background-color: #F8FAFC; border-bottom: 2px solid var(--border-color);">
+                <tr>
+                    <th style="padding: 1rem 1.5rem;">Email</th>
+                    <th style="padding: 1rem 1.5rem;">Rol</th>
+                    <th style="padding: 1rem 1.5rem;">Estado</th>
+                    <th style="padding: 1rem 1.5rem; text-align: right;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="users-table-body">
+                <!-- Se llena dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para Registrar Usuario -->
+    <div id="user-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
+        <div class="card" style="width: 90%; max-width: 400px; position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>Nuevo Usuario</h2>
+                <button id="btn-close-user-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            
+            <form id="user-registration-form">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Correo Electrónico</label>
+                    <input type="email" id="u-email" required placeholder="ejemplo@utrng.edu.mx" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Contraseña Temporal</label>
+                    <input type="password" id="u-password" required minlength="6" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" id="btn-cancel-user" class="btn" style="background-color: #e2e8f0; color: #475569;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

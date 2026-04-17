@@ -1,0 +1,135 @@
+<section class="animate-fade-in">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <h1>Inventario General</h1>
+        <div style="display: flex; gap: 10px; flex: 1; justify-content: flex-end; min-width: 350px;">
+            <div style="position: relative; flex: 1; max-width: 350px;">
+                <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">🔍</span>
+                <input type="text" id="inventory-search" placeholder="Buscar producto, marca o serie..." style="width: 100%; padding: 0.5rem 1rem 0.5rem 2.2rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.9rem;">
+            </div>
+            <button class="btn" id="btn-scan-barcode" title="Escanear Código de Barras" style="background-color: var(--surface-color); border: 1px solid var(--border-color); padding: 0.5rem 0.8rem;">📷</button>
+            <button class="btn btn-primary" id="btn-open-modal" style="white-space: nowrap;">+ Agregar</button>
+        </div>
+
+    <!-- Modal de Cámara para Escaneo -->
+    <div id="scanner-modal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; flex-direction: column;">
+        <div style="position: relative; width: 90%; max-width: 500px; background: white; border-radius: 12px; overflow: hidden;">
+            <div style="padding: 1rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; font-size: 1rem;">Escanear Código</h3>
+                <button id="btn-close-scanner" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            <div id="scanner-container" style="width: 100%; height: 300px; background: #000; position: relative;">
+                <!-- Video de QuaggaJS -->
+                <div class="scanner-laser" style="position: absolute; top: 50%; left: 10%; width: 80%; height: 2px; background: rgba(239, 68, 68, 0.5); box-shadow: 0 0 10px red; z-index: 10; animation: scan-line 2s infinite linear;"></div>
+            </div>
+            <div style="padding: 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+                Enfoque el código de barras dentro del visor.
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes scan-line {
+            0% { top: 20%; }
+            50% { top: 80%; }
+            100% { top: 20%; }
+        }
+        #scanner-container video { width: 100%; height: 100%; object-fit: cover; }
+        #scanner-container canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+    </div>
+
+    <div class="card" style="padding: 0; overflow-x: hidden;">
+        <div style="width: 100%; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; table-layout: auto;">
+                <thead style="background-color: #F8FAFC; border-bottom: 2px solid var(--border-color);">
+                    <tr>
+                        <th style="padding: 0.75rem 1rem;">Nombre</th>
+                        <th style="padding: 0.75rem 1rem;">Marca/Modelo</th>
+                        <th style="padding: 0.75rem 1rem;">S/N</th>
+                        <th style="padding: 0.75rem 1rem;">Tipo</th>
+                        <th style="padding: 0.75rem 1rem;">Estado</th>
+                        <th style="padding: 0.75rem 1rem;">Responsable</th>
+                        <th style="padding: 0.75rem 1rem; text-align: right;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-table-body">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para Agregar/Editar -->
+    <div id="product-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
+        <div class="card" style="width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 id="modal-title">Agregar Producto</h2>
+                <button id="btn-close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="grid-column: span 2;">
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Nombre del Producto</label>
+                        <input type="text" id="p-nombre" required style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Marca</label>
+                        <input type="text" id="p-marca" required style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Modelo</label>
+                        <input type="text" id="p-modelo" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Color</label>
+                        <input type="text" id="p-color" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Número de Serie</label>
+                        <input type="text" id="p-numeroSerie" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Estado</label>
+                        <select id="p-estado" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Buen Estado">Buen Estado</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Dañado">Dañado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Tipo</label>
+                        <select id="p-tipo" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                            <option value="activo">Activo Fijo</option>
+                            <option value="gasto">Gasto / Consumible</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Responsable</label>
+                        <input type="text" id="p-responsable" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <label style="display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem;">Imagen del Producto</label>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <div id="image-preview-container" style="width: 60px; height: 60px; border: 2px dashed var(--border-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #f8fafc;">
+                                <span style="font-size: 1.2rem; color: var(--text-muted);">📷</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <input type="file" id="p-image-file" accept="image/*" style="width: 100%; font-size: 0.75rem;">
+                                <p id="upload-status" style="font-size: 0.7rem; margin-top: 0.2rem; color: var(--primary-color); display: none;">Subiendo imagen...</p>
+                                <input type="hidden" id="p-imagenURL">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" id="btn-cancel" class="btn" style="background-color: #e2e8f0; color: #475569; padding: 0.5rem 1rem;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1.5rem;">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

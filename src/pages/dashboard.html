@@ -1,0 +1,28 @@
+<section class="animate-fade-in">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1>Panel de Control</h1>
+        <div style="color: var(--secondary-color); font-size: 0.875rem;">
+            Última actualización: <span id="current-date">--/--/----</span>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <div class="card">
+            <h3 style="color: var(--secondary-color); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Existencias Totales</h3>
+            <p style="font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0;">2,450</p>
+            <div style="font-size: 0.875rem; color: var(--success-color);">↑ 12% respecto al mes anterior</div>
+        </div>
+        
+        <div class="card">
+            <h3 style="color: var(--secondary-color); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Bajas Pendientes</h3>
+            <p style="font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0; color: var(--error-color);">12</p>
+            <div style="font-size: 0.875rem; color: var(--text-muted);">Requieren revisión inmediata</div>
+        </div>
+
+        <div class="card">
+            <h3 style="color: var(--secondary-color); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Próximos Reabastecimientos</h3>
+            <p style="font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0;">5</p>
+            <div style="font-size: 0.875rem; color: var(--primary-color);">En tránsito</div>
+        </div>
+    </div>
+</section>
