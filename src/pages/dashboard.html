@@ -1,28 +1,46 @@
 <section class="animate-fade-in">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h1>Panel de Control</h1>
-        <div style="color: var(--secondary-color); font-size: 0.875rem;">
-            Última actualización: <span id="current-date">--/--/----</span>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <h1 style="margin-bottom: 0.5rem;">Panel de Control</h1>
+            <p style="color: var(--secondary-color); font-size: 0.95rem;">Resumen general del estado del inventario.</p>
+        </div>
+        <div style="background: white; padding: 0.75rem 1.25rem; border-radius: 12px; border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.875rem; font-weight: 600; box-shadow: var(--shadow);">
+            📅 <span id="current-date">--/--/----</span>
         </div>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-        <div class="card">
-            <h3 style="color: var(--secondary-color); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Existencias Totales</h3>
-            <p style="font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0;">2,450</p>
-            <div style="font-size: 0.875rem; color: var(--success-color);">↑ 12% respecto al mes anterior</div>
+        <div class="card" style="border-left: 5px solid var(--primary-color);">
+            <h3 style="color: var(--secondary-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Existencias Totales</h3>
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+                <p style="font-size: 2.5rem; font-weight: 800; margin: 0; color: var(--text-main);">2,450</p>
+                <div style="font-size: 0.875rem; color: var(--success-color); font-weight: 600;">↑ 12%</div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">Productos registrados en sistema</div>
         </div>
         
-        <div class="card">
-            <h3 style="color: var(--secondary-color); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Bajas Pendientes</h3>
-            <p style="font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0; color: var(--error-color);">12</p>
-            <div style="font-size: 0.875rem; color: var(--text-muted);">Requieren revisión inmediata</div>
+        <div class="card" style="border-left: 5px solid var(--error-color);">
+            <h3 style="color: var(--secondary-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Bajas Pendientes</h3>
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+                <p style="font-size: 2.5rem; font-weight: 800; margin: 0; color: var(--error-color);">12</p>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">Requieren revisión inmediata</div>
         </div>
 
-        <div class="card">
-            <h3 style="color: var(--secondary-color); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Próximos Reabastecimientos</h3>
-            <p style="font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0;">5</p>
-            <div style="font-size: 0.875rem; color: var(--primary-color);">En tránsito</div>
+        <div class="card" style="border-left: 5px solid #f59e0b;">
+            <h3 style="color: var(--secondary-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Reabastecimientos</h3>
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+                <p style="font-size: 2.5rem; font-weight: 800; margin: 0; color: var(--text-main);">5</p>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--primary-color); font-weight: 600;">En tránsito</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 2.5rem;" class="card">
+        <h3 style="margin-bottom: 1.5rem;">Actividad Reciente</h3>
+        <div style="text-align: center; padding: 3rem; color: var(--text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+            <p>No hay actividad reciente para mostrar.</p>
         </div>
     </div>
 </section>
