@@ -18,7 +18,7 @@ export const Navbar = (user) => {
                 <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-main); font-weight: bold;">
                     ${user.name.charAt(0).toUpperCase()}
                 </div>
-                <button id="logout-btn" class="btn" style="border: 1px solid var(--border-color); background: white; color: var(--error-color); padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border-radius: 10px;">
+                <button id="logout-btn" class="btn" style="border: 1px solid var(--border-color); background: rgba(255,255,255,0.05); color: var(--error-color); padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border-radius: 10px;">
                     Cerrar Sesión
                 </button>
             </div>

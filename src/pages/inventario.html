@@ -8,11 +8,11 @@
             <div style="position: relative; flex: 1; max-width: 400px;">
                 <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">🔍</span>
                 <input type="text" id="inventory-search" placeholder="Buscar producto, marca o serie..." 
-                    style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.8rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 0.95rem; background: white; outline: none; transition: all 0.2s;"
+                    style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.8rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 0.95rem; background: var(--bg-color); color: white; outline: none; transition: all 0.2s;"
                     onfocus="this.style.borderColor='var(--primary-color)'; this.style.boxShadow='0 0 0 4px rgba(34,197,94,0.1)'"
                     onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'">
             </div>
-            <button class="btn" id="btn-scan-barcode" title="Escanear Código de Barras" style="background-color: white; border: 1px solid var(--border-color); padding: 0 1.2rem; font-size: 1.2rem;">📷</button>
+            <button class="btn" id="btn-scan-barcode" title="Escanear Código de Barras" style="background-color: var(--surface-color); color: white; border: 1px solid var(--border-color); padding: 0 1.2rem; font-size: 1.2rem;">📷</button>
             <button class="btn btn-primary" id="btn-open-modal" style="white-space: nowrap; padding: 0 1.5rem;">+ Agregar Producto</button>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="card" style="padding: 0; overflow: hidden; border: none; box-shadow: var(--shadow);">
         <div style="width: 100%; overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
-                <thead style="background: #f8fafc; border-bottom: 1px solid var(--border-color);">
+                <thead style="background: var(--bg-color); border-bottom: 1px solid var(--border-color);">
                     <tr>
                         <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Producto</th>
                         <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Marca/Modelo</th>
@@ -40,15 +40,15 @@
 
     <!-- Modal de Cámara para Escaneo -->
     <div id="scanner-modal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(5, 46, 22, 0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; flex-direction: column;">
-        <div style="position: relative; width: 90%; max-width: 500px; background: white; border-radius: var(--border-radius-lg); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+        <div style="position: relative; width: 90%; max-width: 500px; background: var(--surface-color); border-radius: var(--border-radius-lg); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
             <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">Escanear Código de Barras</h3>
-                <button id="btn-close-scanner" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">&times;</button>
+                <button id="btn-close-scanner" style="background: var(--bg-color); color: var(--text-main); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">&times;</button>
             </div>
             <div id="scanner-container" style="width: 100%; height: 350px; background: #000; position: relative;">
                 <div class="scanner-laser" style="position: absolute; top: 50%; left: 10%; width: 80%; height: 2px; background: rgba(34, 197, 94, 0.8); box-shadow: 0 0 15px #22c55e; z-index: 10; animation: scan-line 2s infinite linear;"></div>
             </div>
-            <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; background: #f8fafc;">
+            <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; background: var(--bg-color);">
                 Enfoque el código de barras dentro del visor para una detección automática.
             </div>
         </div>
@@ -59,7 +59,7 @@
         <div class="card" style="width: 95%; max-width: 650px; max-height: 90vh; overflow-y: auto; position: relative; padding: 2.5rem; border-radius: var(--border-radius-lg);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <h2 id="modal-title" style="margin: 0; color: var(--text-main);">Agregar Nuevo Producto</h2>
-                <button id="btn-close-modal" style="background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">&times;</button>
+                <button id="btn-close-modal" style="background: var(--bg-color); color: var(--text-main); border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">&times;</button>
             </div>
             
             <form id="product-form">
@@ -67,27 +67,27 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                     <div style="grid-column: span 2;">
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Nombre del Producto</label>
-                        <input type="text" id="p-nombre" required placeholder="Ej. Monitor HP 24\" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb; outline: none;">
+                        <input type="text" id="p-nombre" required placeholder="Ej. Monitor HP 24\" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; outline: none;">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Marca</label>
-                        <input type="text" id="p-marca" required placeholder="Ej. Hewlett-Packard" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb;">
+                        <input type="text" id="p-marca" required placeholder="Ej. Hewlett-Packard" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Modelo</label>
-                        <input type="text" id="p-modelo" placeholder="Ej. EliteDisplay E243" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb;">
+                        <input type="text" id="p-modelo" placeholder="Ej. EliteDisplay E243" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Color</label>
-                        <input type="text" id="p-color" placeholder="Ej. Negro/Plata" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb;">
+                        <input type="text" id="p-color" placeholder="Ej. Negro/Plata" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Número de Serie</label>
-                        <input type="text" id="p-numeroSerie" placeholder="S/N" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb;">
+                        <input type="text" id="p-numeroSerie" placeholder="S/N" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Estado Actual</label>
-                        <select id="p-estado" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb; cursor: pointer;">
+                        <select id="p-estado" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; cursor: pointer;">
                             <option value="Nuevo">Nuevo</option>
                             <option value="Buen Estado">Buen Estado</option>
                             <option value="Regular">Regular</option>
@@ -96,19 +96,19 @@
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Tipo de Activo</label>
-                        <select id="p-tipo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb; cursor: pointer;">
+                        <select id="p-tipo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; cursor: pointer;">
                             <option value="activo">Activo Fijo</option>
                             <option value="gasto">Gasto / Consumible</option>
                         </select>
                     </div>
                     <div style="grid-column: span 2;">
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Responsable asignado</label>
-                        <input type="text" id="p-responsable" placeholder="Nombre completo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb;">
+                        <input type="text" id="p-responsable" placeholder="Nombre completo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div style="grid-column: span 2;">
                         <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Imagen del Producto</label>
-                        <div style="display: flex; gap: 1.5rem; align-items: center; background: #f9fafb; padding: 1rem; border-radius: var(--border-radius-md); border: 1px dashed var(--border-color);">
-                            <div id="image-preview-container" style="width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: white; border: 1px solid var(--border-color);">
+                        <div style="display: flex; gap: 1.5rem; align-items: center; background: var(--bg-color); padding: 1rem; border-radius: var(--border-radius-md); border: 1px dashed var(--border-color);">
+                            <div id="image-preview-container" style="width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--surface-color); border: 1px solid var(--border-color);">
                                 <span style="font-size: 1.8rem; color: var(--text-muted);">📷</span>
                             </div>
                             <div style="flex: 1;">
@@ -121,7 +121,7 @@
                 </div>
                 
                 <div style="margin-top: 2.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
-                    <button type="button" id="btn-cancel" class="btn" style="background-color: #f1f5f9; color: #475569; padding: 0.8rem 1.5rem; border-radius: var(--border-radius-md);">Cancelar</button>
+                    <button type="button" id="btn-cancel" class="btn" style="background-color: var(--bg-color); color: var(--text-muted); padding: 0.8rem 1.5rem; border-radius: var(--border-radius-md);">Cancelar</button>
                     <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2.5rem;">Guardar Producto</button>
                 </div>
             </form>

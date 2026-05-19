@@ -7,6 +7,20 @@ import { initBajas } from './modules/bajasModule.js';
 import { initProductDetail } from './modules/productDetailModule.js';
 import { AuthModule } from './modules/authModule.js';
 
+import { initGlobalErrorLogging } from './services/logService.js';
+
+// Inicializar Logs Globales
+initGlobalErrorLogging();
+
+// Registro de Service Worker para PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker registrado con éxito', reg))
+            .catch(err => console.error('Error al registrar Service Worker', err));
+    });
+}
+
 // Estado global
 const state = {
     user: null,

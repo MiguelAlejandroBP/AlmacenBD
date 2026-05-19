@@ -11,7 +11,7 @@
             <form id="form-baja">
                 <div style="margin-bottom: 1.5rem;">
                     <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Seleccionar Producto</label>
-                    <select id="baja-producto" required style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb; cursor: pointer;">
+                    <select id="baja-producto" required style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; cursor: pointer;">
                         <option value="">Cargando productos...</option>
                     </select>
                 </div>
@@ -19,15 +19,15 @@
                 <div style="margin-bottom: 1.5rem;">
                     <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Motivo de la Baja</label>
                     <textarea id="baja-motivo" required placeholder="Explique detalladamente la razón de la baja..." 
-                        style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: #f9fafb; min-height: 120px; outline: none; transition: border-color 0.2s;"
+                        style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; min-height: 120px; outline: none; transition: border-color 0.2s;"
                         onfocus="this.style.borderColor='var(--primary-color)'"
                         onblur="this.style.borderColor='var(--border-color)'"></textarea>
                 </div>
 
                 <div style="margin-bottom: 2rem;">
                     <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Evidencia Fotográfica</label>
-                    <div style="display: flex; gap: 1.5rem; align-items: center; background: #f9fafb; padding: 1rem; border-radius: var(--border-radius-md); border: 1px dashed var(--border-color);">
-                        <div id="baja-preview-container" style="width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: white; border: 1px solid var(--border-color);">
+                    <div style="display: flex; gap: 1.5rem; align-items: center; background: var(--bg-color); padding: 1rem; border-radius: var(--border-radius-md); border: 1px dashed var(--border-color);">
+                        <div id="baja-preview-container" style="width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--surface-color); border: 1px solid var(--border-color);">
                             <span style="font-size: 1.5rem; color: var(--text-muted);">📷</span>
                         </div>
                         <div style="flex: 1;">
@@ -45,19 +45,19 @@
 
         <!-- Historial de Bajas -->
         <div class="card" style="padding: 0; overflow: hidden; border: none; box-shadow: var(--shadow);">
-            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; background: #f8fafc;">
+            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; background: var(--bg-color);">
                 <h2 style="font-size: 1.3rem; margin: 0; color: var(--text-main);">Historial de Bajas</h2>
                 <div style="position: relative; width: 100%; max-width: 300px;">
                     <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;">🔍</span>
                     <input type="text" id="bajas-search" placeholder="Filtrar historial..." 
-                        style="width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 0.9rem; outline: none; transition: border-color 0.2s;"
+                        style="width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--surface-color); color: white; font-size: 0.9rem; outline: none; transition: border-color 0.2s;"
                         onfocus="this.style.borderColor='var(--primary-color)'"
                         onblur="this.style.borderColor='var(--border-color)'">
                 </div>
             </div>
             <div style="max-height: 600px; overflow-y: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
-                    <thead style="background: white; position: sticky; top: 0; z-index: 10; border-bottom: 2px solid var(--border-color);">
+                    <thead style="background: var(--bg-color); position: sticky; top: 0; z-index: 10; border-bottom: 2px solid var(--border-color);">
                         <tr>
                             <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Fecha</th>
                             <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Producto</th>
