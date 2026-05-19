@@ -266,8 +266,43 @@
 
                 </div>
 
+                <!-- Rol -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="
+                        display: block;
+                        margin-bottom: 0.6rem;
+                        font-weight: 700;
+                        font-size: 0.9rem;
+                        color: var(--text-main);
+                    ">
+                        Rol asignado
+                    </label>
+                    <select 
+                        id="u-rol"
+                        required
+                        style="
+                            width: 100%;
+                            padding: 0.9rem 1rem;
+                            border: 1px solid var(--border-color);
+                            border-radius: 14px;
+                            background: var(--bg-color);
+                            outline: none;
+                            transition: all 0.25s ease;
+                            color: white;
+                            font-size: 0.95rem;
+                            box-sizing: border-box;
+                        "
+                        onfocus="this.style.borderColor='var(--primary-color)'; this.style.boxShadow='0 0 0 4px rgba(34,197,94,0.15)'"
+                        onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'"
+                    >
+                        <option value="Usuario Estándar">Usuario Estándar</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Supervisor">Supervisor</option>
+                    </select>
+                </div>
+
                 <!-- Password -->
-                <div style="margin-bottom: 2rem;">
+                <div id="password-field-container" style="margin-bottom: 2rem;">
 
                     <label style="
                         display: block;
@@ -312,6 +347,9 @@
                     </p>
 
                 </div>
+
+                <!-- Hidden ID field for editing -->
+                <input type="hidden" id="u-id">
 
                 <!-- Botones -->
                 <div style="
