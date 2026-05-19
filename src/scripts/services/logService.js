@@ -1,20 +1,24 @@
 // src/scripts/services/logService.js
-import { db } from '../firebase.js';
+import { db, auth } from '../firebase.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const LOGS_COLLECTION = 'system_logs';
 
 /**
  * Registra un evento o error en la base de datos para monitoreo.
+ * Ahora incluye el usuario actual para trazabilidad (Audit Log).
  */
 export const logEvent = async (level, message, detail = {}) => {
     try {
+        const user = auth?.currentUser;
         const logData = {
-            level: level, // 'INFO', 'WARNING', 'ERROR'
+            level: level, // 'INFO', 'WARNING', 'ERROR', 'AUDIT'
             message: message,
             detail: typeof detail === 'object' ? JSON.stringify(detail) : detail,
             timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent
+            userAgent: navigator.userAgent,
+            userEmail: user ? user.email : 'Anónimo',
+            userId: user ? user.uid : 'N/A'
         };
 
         // Guardar en Firestore

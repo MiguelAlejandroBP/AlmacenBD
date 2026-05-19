@@ -31,24 +31,30 @@ export const initGlobalSearch = () => {
     };
 
     const performSearch = (term) => {
-        if (!term) {
+        if (!term || term.length < 2) {
             resultsContainer.style.display = 'none';
             return;
         }
 
-        const searchTerm = term.toLowerCase();
+        const searchTerms = term.toLowerCase().split(' ').filter(t => t.length > 0);
         
+        // Función de coincidencia inteligente (coinciden todos los términos en cualquier campo)
+        const isMatch = (item, fields) => {
+            return searchTerms.every(term => 
+                fields.some(field => 
+                    item[field] && item[field].toString().toLowerCase().includes(term)
+                )
+            );
+        };
+
         // Filtrar productos
         const filteredProds = allData.productos.filter(p => 
-            p.nombre.toLowerCase().includes(searchTerm) || 
-            (p.numeroSerie && p.numeroSerie.toLowerCase().includes(searchTerm)) ||
-            p.marca.toLowerCase().includes(searchTerm)
+            isMatch(p, ['nombre', 'marca', 'modelo', 'numeroSerie', 'responsable'])
         );
 
         // Filtrar bajas
         const filteredBajas = allData.bajas.filter(b => 
-            b.productoNombre.toLowerCase().includes(searchTerm) || 
-            b.motivo.toLowerCase().includes(searchTerm)
+            isMatch(b, ['productoNombre', 'motivo', 'usuario'])
         );
 
         renderResults([...filteredProds, ...filteredBajas]);

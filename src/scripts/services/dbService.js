@@ -47,6 +47,7 @@ export const saveUserInDb = async (uid, userData) => {
                 ...userData,
                 lastUpdate: new Date().toISOString()
             });
+            logEvent('AUDIT', 'Usuario actualizado', { uid, email: userData.email, rol: userData.rol });
         } catch (err) {
             // Si falla (probablemente porque no existe), creamos el documento
             await setDoc(userRef, {
@@ -54,6 +55,7 @@ export const saveUserInDb = async (uid, userData) => {
                 createdAt: new Date().toISOString(),
                 estado: 'Activo'
             });
+            logEvent('AUDIT', 'Usuario creado en DB', { uid, email: userData.email, rol: userData.rol });
         }
         return true;
     } catch (error) {
@@ -70,7 +72,9 @@ export const saveUserInDb = async (uid, userData) => {
 export const deleteUserFromDb = async (uid) => {
     try {
         const userRef = doc(db, USERS_COLLECTION, uid);
-        return await deleteDoc(userRef);
+        await deleteDoc(userRef);
+        logEvent('AUDIT', 'Usuario eliminado de DB', { uid });
+        return true;
     } catch (error) {
         logEvent('ERROR', 'Error eliminando usuario de DB', { message: error.message });
         throw error;
@@ -146,10 +150,12 @@ export const onInventoryUpdate = (callback) => {
  */
 export const addProduct = async (productData) => {
     try {
-        return await addDoc(collection(db, COLLECTION_NAME), {
+        const docRef = await addDoc(collection(db, COLLECTION_NAME), {
             ...productData,
             fechaRegistro: productData.fechaRegistro || new Date().toISOString()
         });
+        logEvent('AUDIT', 'Producto agregado', { id: docRef.id, nombre: productData.nombre });
+        return docRef;
     } catch (error) {
         console.error("Error al agregar producto:", error);
         throw error;
@@ -162,7 +168,9 @@ export const addProduct = async (productData) => {
 export const updateProduct = async (id, productData) => {
     try {
         const productRef = doc(db, COLLECTION_NAME, id);
-        return await updateDoc(productRef, productData);
+        await updateDoc(productRef, productData);
+        logEvent('AUDIT', 'Producto actualizado', { id, ...productData });
+        return true;
     } catch (error) {
         console.error("Error al actualizar producto:", error);
         throw error;
@@ -175,7 +183,9 @@ export const updateProduct = async (id, productData) => {
 export const deleteProduct = async (id) => {
     try {
         const productRef = doc(db, COLLECTION_NAME, id);
-        return await deleteDoc(productRef);
+        await deleteDoc(productRef);
+        logEvent('AUDIT', 'Producto eliminado', { id });
+        return true;
     } catch (error) {
         console.error("Error al eliminar producto:", error);
         throw error;
