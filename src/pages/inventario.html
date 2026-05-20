@@ -50,8 +50,12 @@
             <div id="scanner-container" style="width: 100%; height: 350px; background: #000; position: relative;">
                 <div class="scanner-laser" style="position: absolute; top: 50%; left: 10%; width: 80%; height: 2px; background: rgba(34, 197, 94, 0.8); box-shadow: 0 0 15px #22c55e; z-index: 10; animation: scan-line 2s infinite linear;"></div>
             </div>
-            <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; background: var(--bg-color);">
-                Enfoque el código de barras dentro del visor para una detección automática.
+            <div style="padding: 1.5rem; text-align: center; background: var(--bg-color);">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Enfoque el código de barras dentro del visor o seleccione una imagen.</p>
+                <button id="btn-scan-image" class="btn" style="background-color: var(--surface-color); color: white; border: 1px solid var(--border-color); width: 100%; padding: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span>🖼️</span> Subir Imagen para Escanear
+                </button>
+                <input type="file" id="scan-image-input" accept="image/*" style="display: none;">
             </div>
         </div>
     </div>

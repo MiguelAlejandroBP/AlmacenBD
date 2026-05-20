@@ -26,31 +26,47 @@ export const initInventory = () => {
     const btnScan = document.getElementById('btn-scan-barcode');
     const scannerModal = document.getElementById('scanner-modal');
     const btnCloseScanner = document.getElementById('btn-close-scanner');
+    const btnScanImage = document.getElementById('btn-scan-image');
+    const scanImageInput = document.getElementById('scan-image-input');
+
+    const handleDetectedCode = (code) => {
+        scannerModal.style.display = 'none';
+        
+        // Buscar si el producto existe
+        const product = currentProducts.find(p => p.numeroSerie === code);
+        
+        if (product) {
+            alert(`Producto encontrado: ${product.nombre}`);
+            openModal(product);
+        } else {
+            if (confirm(`El producto con S/N: ${code} no existe. ¿Desea registrarlo como nuevo?`)) {
+                openModal();
+                document.getElementById('p-numeroSerie').value = code;
+            }
+        }
+    };
 
     if (btnScan) {
         btnScan.onclick = () => {
             scannerModal.style.display = 'flex';
-            ScannerService.start('#scanner-container', (code) => {
-                scannerModal.style.display = 'none';
-                
-                // Buscar si el producto existe
-                const product = currentProducts.find(p => p.numeroSerie === code);
-                
-                if (product) {
-                    alert(`Producto encontrado: ${product.nombre}`);
-                    // Podríamos abrir el modal de edición o resaltar en la tabla
-                    openModal(product);
-                } else {
-                    if (confirm(`El producto con S/N: ${code} no existe. ¿Desea registrarlo como nuevo?`)) {
-                        openModal();
-                        document.getElementById('p-numeroSerie').value = code;
-                    }
-                }
-            });
+            ScannerService.start('#scanner-container', handleDetectedCode);
         };
         btnCloseScanner.onclick = () => {
             scannerModal.style.display = 'none';
             ScannerService.stop();
+        };
+    }
+
+    if (btnScanImage && scanImageInput) {
+        btnScanImage.onclick = () => scanImageInput.click();
+        scanImageInput.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            ScannerService.decodeImage(file, (code) => {
+                handleDetectedCode(code);
+                scanImageInput.value = ''; // Limpiar input
+            });
         };
     }
 
