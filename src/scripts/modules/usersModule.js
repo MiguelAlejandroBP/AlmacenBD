@@ -1,5 +1,6 @@
 import { registrarUsuario } from '../firebase.js';
 import { getAllUsers, saveUserInDb, deleteUserFromDb } from '../services/dbService.js';
+import { state } from '../app.js';
 
 export const initUsers = async () => {
     // Asegurarnos de que el DOM esté listo antes de buscar elementos
@@ -25,7 +26,17 @@ export const initUsers = async () => {
             return;
         }
 
+        const isAdminMaestro = state.user?.rol === 'Administrador Maestro';
+
+        if (!isAdminMaestro) {
+            btnOpen.style.display = 'none';
+        }
+
         const openModal = (user = null) => {
+            if (!isAdminMaestro) {
+                alert("No tiene permisos para realizar esta acción.");
+                return;
+            }
             if (user) {
                 // Modo Edición
                 modalTitle.innerText = 'Editar Rol';
@@ -63,6 +74,8 @@ export const initUsers = async () => {
 
         form.onsubmit = async (e) => {
             e.preventDefault();
+            if (!isAdminMaestro) return;
+
             const email = emailInput.value;
             const role = roleInput.value;
             const userId = idInput.value;
@@ -125,6 +138,7 @@ export const initUsers = async () => {
                         </span>
                     </td>
                     <td style="padding: 1rem 1.5rem; text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
+                        ${isAdminMaestro ? `
                         <button class="btn-edit-user" 
                                 data-id="${user.id}" 
                                 data-email="${user.email}" 
@@ -139,39 +153,43 @@ export const initUsers = async () => {
                                 title="Eliminar Usuario">
                             🗑️
                         </button>
+                        ` : ''}
                     </td>
                 </tr>
             `).join('');
 
-            // Asignar eventos de edición
-            document.querySelectorAll('.btn-edit-user').forEach(btn => {
-                btn.onclick = () => {
-                    const user = {
-                        id: btn.dataset.id,
-                        email: btn.dataset.email,
-                        rol: btn.dataset.rol
+            if (isAdminMaestro) {
+                // Asignar eventos de edición
+                document.querySelectorAll('.btn-edit-user').forEach(btn => {
+                    btn.onclick = () => {
+                        const user = {
+                            id: btn.dataset.id,
+                            email: btn.dataset.email,
+                            rol: btn.dataset.rol
+                        };
+                        openModal(user);
                     };
-                    openModal(user);
-                };
-            });
+                });
 
-            // Asignar eventos de eliminación
-            document.querySelectorAll('.btn-delete-user').forEach(btn => {
-                btn.onclick = async () => {
-                    if (confirm('¿Estás seguro de eliminar este acceso?')) {
-                        try {
-                            await deleteUserFromDb(btn.dataset.id);
-                            await renderList();
-                        } catch (error) {
-                            alert("Error al eliminar: " + error.message);
+                // Asignar eventos de eliminación
+                document.querySelectorAll('.btn-delete-user').forEach(btn => {
+                    btn.onclick = async () => {
+                        if (confirm('¿Estás seguro de eliminar este acceso?')) {
+                            try {
+                                await deleteUserFromDb(btn.dataset.id);
+                                await renderList();
+                            } catch (error) {
+                                alert("Error al eliminar: " + error.message);
+                            }
                         }
-                    }
-                };
-            });
+                    };
+                });
+            }
         };
 
         renderList();
     }, 100);
 };
+
 
 

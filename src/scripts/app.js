@@ -6,6 +6,7 @@ import { initUsers } from './modules/usersModule.js';
 import { initBajas } from './modules/bajasModule.js';
 import { initProductDetail } from './modules/productDetailModule.js';
 import { AuthModule } from './modules/authModule.js';
+import { getUserData } from './services/dbService.js';
 
 import { initGlobalErrorLogging } from './services/logService.js';
 
@@ -22,7 +23,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // Estado global
-const state = {
+export const state = {
     user: null,
     currentRoute: window.location.hash || '#dashboard'
 };
@@ -62,7 +63,10 @@ const renderPage = async () => {
             <div id="overlay" class="overlay"></div>
             ${Sidebar(fullHash.split('?')[0])}
             <div class="main-wrapper">
-                ${Navbar({ name: state.user?.email?.split('@')[0] || "Usuario", role: 'Administrador' })}
+                ${Navbar({ 
+                    name: state.user?.email?.split('@')[0] || "Usuario", 
+                    role: state.user?.rol || 'Usuario' 
+                })}
                 <main id="content" class="content-area">
                     <div class="loading">Cargando...</div>
                 </main>
@@ -122,11 +126,17 @@ const renderPage = async () => {
     }
 };
 
-onAuthUpdate((user) => {
-    state.user = user;
+onAuthUpdate(async (user) => {
+    if (user) {
+        const userData = await getUserData(user.uid);
+        state.user = { ...user, ...userData };
+    } else {
+        state.user = null;
+    }
     renderPage();
 });
 
 window.addEventListener('hashchange', renderPage);
 if (!window.location.hash) window.location.hash = '#dashboard';
 else renderPage();
+

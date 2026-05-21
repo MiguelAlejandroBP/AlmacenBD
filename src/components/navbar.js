@@ -13,7 +13,7 @@ export const Navbar = (user) => {
             <div style="display: flex; align-items: center; gap: 15px;">
                 <div style="text-align: right;" class="user-info">
                     <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">${user.name}</div>
-                    <div style="font-size: 0.7rem; color: var(--secondary-color);">Administrador</div>
+                    <div style="font-size: 0.7rem; color: var(--secondary-color);">${user.role}</div>
                 </div>
                 <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-main); font-weight: bold;">
                     ${user.name.charAt(0).toUpperCase()}

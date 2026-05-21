@@ -4,6 +4,7 @@ import {
     collection, 
     addDoc, 
     getDocs, 
+    getDoc,
     doc, 
     updateDoc, 
     setDoc,
@@ -20,6 +21,23 @@ const COLLECTION_NAME = 'productos';
 const BAJAS_COLLECTION = 'bajas';
 const USERS_COLLECTION = 'usuarios';
 const CACHE_KEY = 'inventory_cache';
+
+/**
+ * Obtiene los datos de un usuario por su UID.
+ */
+export const getUserData = async (uid) => {
+    try {
+        const userRef = doc(db, USERS_COLLECTION, uid);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+            return { id: docSnap.id, ...docSnap.data() };
+        }
+        return null;
+    } catch (error) {
+        logEvent('ERROR', 'Error obteniendo datos del usuario', { uid, message: error.message });
+        return null;
+    }
+};
 
 /**
  * Obtiene todos los usuarios registrados en la colección de Firestore.
