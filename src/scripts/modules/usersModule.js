@@ -137,23 +137,25 @@ export const initUsers = async () => {
                             ${user.estado || 'Inactivo'}
                         </span>
                     </td>
-                    <td style="padding: 1rem 1.5rem; text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
-                        ${isAdminMaestro ? `
-                        <button class="btn-edit-user" 
-                                data-id="${user.id}" 
-                                data-email="${user.email}" 
-                                data-rol="${user.rol || ''}" 
-                                style="background: none; border: none; cursor: pointer; font-size: 1.2rem;" 
-                                title="Editar Rol">
-                            ✏️
-                        </button>
-                        <button class="btn-delete-user" 
-                                data-id="${user.id}" 
-                                style="background: none; border: none; cursor: pointer; font-size: 1.2rem;" 
-                                title="Eliminar Usuario">
-                            🗑️
-                        </button>
-                        ` : ''}
+                    <td style="padding: 1rem 1.5rem; text-align: right;">
+                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                            ${isAdminMaestro ? `
+                            <button class="btn-edit-user" 
+                                    data-id="${user.id}" 
+                                    data-email="${user.email}" 
+                                    data-rol="${user.rol || ''}" 
+                                    style="background: none; border: none; cursor: pointer; font-size: 1.1rem;" 
+                                    title="Editar Rol">
+                                ✏️
+                            </button>
+                            <button class="btn-delete-user" 
+                                    data-id="${user.id}" 
+                                    style="background: none; border: none; cursor: pointer; font-size: 1.1rem;" 
+                                    title="Eliminar Usuario">
+                                🗑️
+                            </button>
+                            ` : '---'}
+                        </div>
                     </td>
                 </tr>
             `).join('');

@@ -5,6 +5,7 @@ import { initInventory } from './modules/inventoryModule.js';
 import { initUsers } from './modules/usersModule.js';
 import { initBajas } from './modules/bajasModule.js';
 import { initProductDetail } from './modules/productDetailModule.js';
+import { initDashboard } from './modules/dashboardModule.js';
 import { AuthModule } from './modules/authModule.js';
 import { getUserData } from './services/dbService.js';
 
@@ -111,6 +112,7 @@ const renderPage = async () => {
         if (pageName === 'dashboard') {
             const dateEl = document.getElementById('current-date');
             if (dateEl) dateEl.innerText = new Date().toLocaleDateString();
+            initDashboard();
         } else if (pageName === 'inventario') {
             initInventory();
         } else if (pageName === 'usuarios') {
