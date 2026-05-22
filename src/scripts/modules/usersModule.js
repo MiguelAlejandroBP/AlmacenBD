@@ -27,9 +27,8 @@ export const initUsers = async () => {
             return;
         }
 
-        const userRole = state.user?.rol;
-        // TEMPORAL: Permitir que Empleados también gestionen para configuración inicial
-        const canManageUsers = userRole === 'Admin' || userRole === 'Empleado' || !userRole;
+        // FORZADO TEMPORAL: Permitir gestión a todos para configuración inicial
+        const canManageUsers = true;
 
         if (!canManageUsers) {
             btnOpen.style.display = 'none';
