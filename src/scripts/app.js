@@ -50,15 +50,11 @@ const renderPage = async () => {
         }
 
         // --- Protección de rutas por Rol ---
-        // TEMPORAL: Desactivado para configuración inicial
-        /*
-        const isAdmin = ['Admin', 'Administrador', 'Administrador Maestro'].includes(state.user?.rol);
-        if (pageName === 'usuarios' && !isAdmin) {
+        if (pageName === 'usuarios' && state.user?.rol !== 'Admin') {
             alert("Acceso restringido. Solo administradores pueden gestionar usuarios.");
             window.location.hash = '#dashboard';
             return;
         }
-        */
 
         state.currentRoute = fullHash;
 

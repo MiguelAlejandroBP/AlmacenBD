@@ -5,8 +5,10 @@ export const Sidebar = (activeRoute, userRole) => {
         { id: 'bajas', label: 'Bajas de Material', icon: '📉' }
     ];
 
-    // TEMPORAL: Permitir que todos vean Usuarios para configurar el primer Admin
-    menuItems.push({ id: 'usuarios', label: 'Usuarios', icon: '👥' });
+    // Solo mostrar el menú de Usuarios si el rol es Admin
+    if (userRole === 'Admin') {
+        menuItems.push({ id: 'usuarios', label: 'Usuarios', icon: '👥' });
+    }
 
     return `
         <aside class="sidebar">
