@@ -28,7 +28,8 @@ export const initUsers = async () => {
         }
 
         const userRole = state.user?.rol;
-        const canManageUsers = userRole === 'Administrador Maestro' || userRole === 'Administrador';
+        // TEMPORAL: Permitir que Empleados también gestionen para configuración inicial
+        const canManageUsers = userRole === 'Admin' || userRole === 'Empleado' || !userRole;
 
         if (!canManageUsers) {
             btnOpen.style.display = 'none';
@@ -47,7 +48,7 @@ export const initUsers = async () => {
                 emailInput.disabled = true;
                 passwordContainer.style.display = 'none';
                 passwordInput.required = false;
-                roleInput.value = user.rol || 'Usuario Estándar';
+                roleInput.value = user.rol || 'Empleado';
                 estadoInput.value = user.estado || 'Activo';
                 idInput.value = user.id;
                 btnSubmit.innerText = 'Guardar Cambios';
@@ -59,7 +60,7 @@ export const initUsers = async () => {
                 emailInput.disabled = false;
                 passwordContainer.style.display = 'block';
                 passwordInput.required = true;
-                roleInput.value = 'Usuario Estándar';
+                roleInput.value = 'Empleado';
                 estadoInput.value = 'Activo';
                 idInput.value = '';
                 btnSubmit.innerText = 'Registrar Acceso';

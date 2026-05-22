@@ -294,6 +294,14 @@ export const initInventory = () => {
         }
     };
 
+    const userRole = state.user?.rol;
+    const canManageInventory = userRole === 'Admin';
+
+    if (!canManageInventory) {
+        if (btnOpenModal) btnOpenModal.style.display = 'none';
+        if (btnImportCsv) btnImportCsv.style.display = 'none';
+    }
+
     const renderTable = (products) => {
         tableBody.innerHTML = products.map(p => `
             <tr style="border-bottom: 1px solid var(--border-color);">
@@ -322,33 +330,37 @@ export const initInventory = () => {
                 <td style="padding: 1rem 1.5rem; text-align: right;">
                     <div style="display: flex; gap: 8px; justify-content: flex-end;">
                         <button class="btn-print" data-id="${p.id}" title="Imprimir Ticket" style="background: none; border: none; cursor: pointer; font-size: 1.1rem;">🖨️</button>
-                        <button class="btn-edit" data-id="${p.id}" title="Editar" style="background: none; border: none; cursor: pointer; font-size: 1.1rem;">✏️</button>
-                        <button class="btn-delete" data-id="${p.id}" title="Eliminar" style="background: none; border: none; cursor: pointer; font-size: 1.1rem;">🗑️</button>
+                        ${canManageInventory ? `
+                            <button class="btn-edit" data-id="${p.id}" title="Editar" style="background: none; border: none; cursor: pointer; font-size: 1.1rem;">✏️</button>
+                            <button class="btn-delete" data-id="${p.id}" title="Eliminar" style="background: none; border: none; cursor: pointer; font-size: 1.1rem;">🗑️</button>
+                        ` : ''}
                     </div>
                 </td>
             </tr>
         `).join('');
 
         // Asignar eventos
-        document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.onclick = () => {
-                const product = products.find(p => p.id === btn.dataset.id);
-                openModal(product);
-            };
-        });
+        if (canManageInventory) {
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.onclick = () => {
+                    const product = products.find(p => p.id === btn.dataset.id);
+                    openModal(product);
+                };
+            });
 
-        document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.onclick = async () => {
-                if (confirm('¿Desea eliminar este producto?')) {
-                    try {
-                        await deleteProduct(btn.dataset.id);
-                        loadInventoryData(true);
-                    } catch (error) {
-                        alert("Error al eliminar");
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.onclick = async () => {
+                    if (confirm('¿Desea eliminar este producto?')) {
+                        try {
+                            await deleteProduct(btn.dataset.id);
+                            loadInventoryData(true);
+                        } catch (error) {
+                            alert("Error al eliminar");
+                        }
                     }
-                }
-            };
-        });
+                };
+            });
+        }
 
         document.querySelectorAll('.btn-print').forEach(btn => {
             btn.onclick = () => {

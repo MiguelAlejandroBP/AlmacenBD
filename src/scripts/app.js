@@ -49,6 +49,17 @@ const renderPage = async () => {
             return;
         }
 
+        // --- Protección de rutas por Rol ---
+        // TEMPORAL: Desactivado para configuración inicial
+        /*
+        const isAdmin = ['Admin', 'Administrador', 'Administrador Maestro'].includes(state.user?.rol);
+        if (pageName === 'usuarios' && !isAdmin) {
+            alert("Acceso restringido. Solo administradores pueden gestionar usuarios.");
+            window.location.hash = '#dashboard';
+            return;
+        }
+        */
+
         state.currentRoute = fullHash;
 
         if (pageName === 'login') {
@@ -62,11 +73,11 @@ const renderPage = async () => {
         // --- Layout Protegido con Overlay para Móvil ---
         appContainer.innerHTML = `
             <div id="overlay" class="overlay"></div>
-            ${Sidebar(fullHash.split('?')[0])}
+            ${Sidebar(fullHash.split('?')[0], state.user?.rol)}
             <div class="main-wrapper">
                 ${Navbar({ 
                     name: state.user?.email?.split('@')[0] || "Usuario", 
-                    role: state.user?.rol || 'Usuario' 
+                    role: state.user?.rol || 'Empleado' 
                 })}
                 <main id="content" class="content-area">
                     <div class="loading">Cargando...</div>

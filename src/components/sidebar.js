@@ -1,10 +1,12 @@
-export const Sidebar = (activeRoute) => {
+export const Sidebar = (activeRoute, userRole) => {
     const menuItems = [
         { id: 'dashboard', label: 'Dashboard', icon: '📊' },
         { id: 'inventario', label: 'Inventario', icon: '📦' },
-        { id: 'bajas', label: 'Bajas de Material', icon: '📉' },
-        { id: 'usuarios', label: 'Usuarios', icon: '👥' }
+        { id: 'bajas', label: 'Bajas de Material', icon: '📉' }
     ];
+
+    // TEMPORAL: Permitir que todos vean Usuarios para configurar el primer Admin
+    menuItems.push({ id: 'usuarios', label: 'Usuarios', icon: '👥' });
 
     return `
         <aside class="sidebar">

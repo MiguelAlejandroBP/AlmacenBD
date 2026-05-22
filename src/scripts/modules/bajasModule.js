@@ -1,6 +1,7 @@
 import { onInventoryUpdate, registerBaja, onBajasUpdate } from '../services/dbService.js';
 import { uploadImage } from '../services/cloudinaryService.js';
 import { generarTicketPDF } from '../utils/pdfGenerator.js';
+import { state } from '../app.js';
 
 let availableProducts = [];
 let currentBajas = [];
@@ -62,7 +63,7 @@ export const initBajas = () => {
                 generarTicketPDF({
                     nombre: baja.productoNombre,
                     fecha: baja.fecha,
-                    responsable: "Administrador",
+                    responsable: state.user?.email || "Usuario",
                     tipo: 'Registro de Baja'
                 });
             };
@@ -116,7 +117,7 @@ export const initBajas = () => {
                 generarTicketPDF({
                     nombre: bajaData.productoNombre,
                     fecha: bajaData.fecha,
-                    responsable: "Administrador",
+                    responsable: state.user?.email || "Usuario",
                     tipo: 'Registro de Baja'
                 });
             }
