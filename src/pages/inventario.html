@@ -72,28 +72,28 @@
                 <input type="hidden" id="product-id">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                     <div style="grid-column: span 2;">
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Nombre del Producto</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Nombre del Producto</label>
                         <input type="text" id="p-nombre" required placeholder="Ej. Monitor HP 24\" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; outline: none;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Marca</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Marca</label>
                         <input type="text" id="p-marca" required placeholder="Ej. Hewlett-Packard" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Modelo</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Modelo</label>
                         <input type="text" id="p-modelo" placeholder="Ej. EliteDisplay E243" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Color</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Color</label>
                         <input type="text" id="p-color" placeholder="Ej. Negro/Plata" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Número de Serie</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Número de Serie</label>
                         <input type="text" id="p-numeroSerie" placeholder="S/N" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Estado Actual</label>
-                        <select id="p-estado" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; cursor: pointer;">
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Estado Actual</label>
+                        <select id="p-estado" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); cursor: pointer;">
                             <option value="Nuevo">Nuevo</option>
                             <option value="Buen Estado">Buen Estado</option>
                             <option value="Regular">Regular</option>
@@ -101,18 +101,18 @@
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Tipo de Activo</label>
-                        <select id="p-tipo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; cursor: pointer;">
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Tipo de Activo</label>
+                        <select id="p-tipo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); cursor: pointer;">
                             <option value="activo">Activo Fijo</option>
                             <option value="gasto">Gasto / Consumible</option>
                         </select>
                     </div>
                     <div style="grid-column: span 2;">
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Responsable asignado</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Responsable asignado</label>
                         <input type="text" id="p-responsable" placeholder="Nombre completo" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white;">
                     </div>
                     <div style="grid-column: span 2;">
-                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Imagen del Producto</label>
+                        <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Imagen del Producto</label>
                         <div style="display: flex; gap: 1.5rem; align-items: center; background: var(--bg-color); padding: 1rem; border-radius: var(--border-radius-md); border: 1px dashed var(--border-color);">
                             <div id="image-preview-container" style="width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--surface-color); border: 1px solid var(--border-color);">
                                 <span style="font-size: 1.8rem; color: var(--text-muted);">📷</span>

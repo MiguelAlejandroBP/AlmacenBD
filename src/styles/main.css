@@ -107,10 +107,30 @@ body {
 }
 
 /* Inputs en Dark Mode */
+label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: white;
+}
+
 input, select, textarea {
     background-color: rgba(255,255,255,0.05) !important;
     color: white !important;
     border: 1px solid var(--border-color) !important;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+option {
+    background-color: var(--surface-color);
+    color: white;
 }
 
 input::placeholder {

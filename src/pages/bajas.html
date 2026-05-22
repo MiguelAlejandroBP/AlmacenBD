@@ -10,14 +10,14 @@
             <h2 style="margin-bottom: 2rem; font-size: 1.3rem; color: var(--text-main);">Nueva Baja</h2>
             <form id="form-baja">
                 <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Seleccionar Producto</label>
-                    <select id="baja-producto" required style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: black; cursor: pointer;">
+                    <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Seleccionar Producto</label>
+                    <select id="baja-producto" required style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); cursor: pointer;">
                         <option value="">Cargando productos...</option>
                     </select>
                 </div>
                 
                 <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Motivo de la Baja</label>
+                    <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Motivo de la Baja</label>
                     <textarea id="baja-motivo" required placeholder="Explique detalladamente la razón de la baja..." 
                         style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--bg-color); color: white; min-height: 120px; outline: none; transition: border-color 0.2s;"
                         onfocus="this.style.borderColor='var(--primary-color)'"
@@ -25,7 +25,7 @@
                 </div>
 
                 <div style="margin-bottom: 2rem;">
-                    <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Evidencia Fotográfica</label>
+                    <label style="display: block; margin-bottom: 0.6rem; font-weight: 600; font-size: 0.9rem;">Evidencia Fotográfica</label>
                     <div style="display: flex; gap: 1.5rem; align-items: center; background: var(--bg-color); padding: 1rem; border-radius: var(--border-radius-md); border: 1px dashed var(--border-color);">
                         <div id="baja-preview-container" style="width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--surface-color); border: 1px solid var(--border-color);">
                             <span style="font-size: 1.5rem; color: var(--text-muted);">📷</span>
@@ -50,7 +50,7 @@
                     <h2 style="font-size: 1.3rem; margin: 0; color: var(--text-main);">Historial de Bajas</h2>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap; width: 100%; max-width: 500px;">
                         <!-- Filtro por Estado -->
-                        <select id="filter-baja-status" style="padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--surface-color); color: white; font-size: 0.9rem; outline: none;">
+                        <select id="filter-baja-status" style="padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--surface-color); font-size: 0.9rem; outline: none;">
                             <option value="">Todos los Estados</option>
                             <option value="Por Procesar">Por Procesar</option>
                             <option value="En Revisión">En Revisión</option>
