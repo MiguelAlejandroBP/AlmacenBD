@@ -1,6 +1,8 @@
-import { getInventory } from '../services/dbService.js';
+import { onInventoryUpdate } from '../services/dbService.js';
 
-export const initDashboard = async () => {
+let unsubscribeInventory = null;
+
+export const initDashboard = () => {
     const totalExistenciasEl = document.getElementById('total-existencias');
     const totalBajasEl = document.getElementById('total-bajas');
     const totalServiciosEl = document.getElementById('total-servicios');
@@ -10,18 +12,24 @@ export const initDashboard = async () => {
         return;
     }
 
-    try {
-        const products = await getInventory();
-        
-        const total = products.length;
-        const bajas = products.filter(p => p.estado === 'Baja').length;
-        const enServicio = total - bajas;
+    if (unsubscribeInventory) unsubscribeInventory();
 
-        totalExistenciasEl.innerText = total;
-        totalBajasEl.innerText = bajas;
-        totalServiciosEl.innerText = enServicio;
+    unsubscribeInventory = onInventoryUpdate((products) => {
+        try {
+            const total = products.length;
+            const bajas = products.filter(p => p.estado === 'Baja').length;
+            const enServicio = products.filter(p => p.estado !== 'Baja').length;
 
-    } catch (error) {
-        console.error("Error al inicializar dashboard:", error);
-    }
+            totalExistenciasEl.innerText = total;
+            totalBajasEl.innerText = bajas;
+            totalServiciosEl.innerText = enServicio;
+
+            // Actualizar fecha
+            const dateEl = document.getElementById('current-date');
+            if (dateEl) dateEl.innerText = new Date().toLocaleDateString();
+
+        } catch (error) {
+            console.error("Error al procesar datos del dashboard:", error);
+        }
+    });
 };

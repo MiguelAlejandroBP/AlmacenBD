@@ -12,40 +12,43 @@ export const initUsers = async () => {
         const btnClose = document.getElementById('btn-close-user-modal');
         const btnCancel = document.getElementById('btn-cancel-user');
         
-        const modalTitle = modal.querySelector('h2');
-        const modalSubtitle = modal.querySelector('p');
+        const modalTitle = modal?.querySelector('h2');
+        const modalSubtitle = modal?.querySelector('p');
         const passwordContainer = document.getElementById('password-field-container');
         const emailInput = document.getElementById('u-email');
         const passwordInput = document.getElementById('u-password');
         const roleInput = document.getElementById('u-rol');
+        const estadoInput = document.getElementById('u-estado');
         const idInput = document.getElementById('u-id');
-        const btnSubmit = form.querySelector('button[type="submit"]');
+        const btnSubmit = form?.querySelector('button[type="submit"]');
 
         if (!tableBody || !modal || !form || !btnOpen) {
             console.error("No se encontraron elementos de la UI de usuarios");
             return;
         }
 
-        const isAdminMaestro = state.user?.rol === 'Administrador Maestro';
+        const userRole = state.user?.rol;
+        const canManageUsers = userRole === 'Administrador Maestro' || userRole === 'Administrador';
 
-        if (!isAdminMaestro) {
+        if (!canManageUsers) {
             btnOpen.style.display = 'none';
         }
 
         const openModal = (user = null) => {
-            if (!isAdminMaestro) {
+            if (!canManageUsers) {
                 alert("No tiene permisos para realizar esta acción.");
                 return;
             }
             if (user) {
                 // Modo Edición
-                modalTitle.innerText = 'Editar Rol';
-                modalSubtitle.innerText = 'Actualice los permisos del usuario';
+                modalTitle.innerText = 'Editar Usuario';
+                modalSubtitle.innerText = 'Actualice los datos del perfil';
                 emailInput.value = user.email;
                 emailInput.disabled = true;
                 passwordContainer.style.display = 'none';
                 passwordInput.required = false;
                 roleInput.value = user.rol || 'Usuario Estándar';
+                estadoInput.value = user.estado || 'Activo';
                 idInput.value = user.id;
                 btnSubmit.innerText = 'Guardar Cambios';
             } else {
@@ -57,6 +60,7 @@ export const initUsers = async () => {
                 passwordContainer.style.display = 'block';
                 passwordInput.required = true;
                 roleInput.value = 'Usuario Estándar';
+                estadoInput.value = 'Activo';
                 idInput.value = '';
                 btnSubmit.innerText = 'Registrar Acceso';
             }
@@ -74,10 +78,11 @@ export const initUsers = async () => {
 
         form.onsubmit = async (e) => {
             e.preventDefault();
-            if (!isAdminMaestro) return;
+            if (!canManageUsers) return;
 
             const email = emailInput.value;
             const role = roleInput.value;
+            const estado = estadoInput.value;
             const userId = idInput.value;
 
             try {
@@ -85,12 +90,13 @@ export const initUsers = async () => {
                 btnSubmit.innerText = userId ? 'Guardando...' : 'Registrando...';
                 
                 if (userId) {
-                    // Actualizar Rol
+                    // Actualizar Usuario
                     await saveUserInDb(userId, {
                         email,
-                        rol: role
+                        rol: role,
+                        estado: estado
                     });
-                    alert("Rol actualizado con éxito.");
+                    alert("Usuario actualizado con éxito.");
                 } else {
                     // Nuevo Usuario
                     const password = passwordInput.value;
@@ -101,7 +107,7 @@ export const initUsers = async () => {
                     await saveUserInDb(user.uid, {
                         email: user.email,
                         rol: role,
-                        estado: 'Activo'
+                        estado: estado || 'Activo'
                     });
                     alert("Usuario registrado con éxito.");
                 }
@@ -130,22 +136,31 @@ export const initUsers = async () => {
 
             tableBody.innerHTML = users.map(user => `
                 <tr style="border-bottom: 1px solid var(--border-color);">
-                    <td style="padding: 1rem 1.5rem;">${user.email}</td>
-                    <td style="padding: 1rem 1.5rem;">${user.rol || 'Sin Rol'}</td>
                     <td style="padding: 1rem 1.5rem;">
-                        <span style="color: ${user.estado === 'Activo' ? '#10b981' : '#ef4444'}; font-weight: 600;">
+                        <div style="font-weight: 600; color: white;">${user.email}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">${user.id}</div>
+                    </td>
+                    <td style="padding: 1rem 1.5rem;">
+                        <span style="padding: 4px 10px; border-radius: 20px; background: rgba(245,158,11,0.1); color: #f59e0b; font-size: 0.85rem; font-weight: 600;">
+                            ${user.rol || 'Sin Rol'}
+                        </span>
+                    </td>
+                    <td style="padding: 1rem 1.5rem;">
+                        <span style="display: flex; align-items: center; gap: 6px; color: ${user.estado === 'Activo' ? '#10b981' : '#ef4444'}; font-weight: 600;">
+                            <span style="width: 8px; height: 8px; border-radius: 50%; background: currentColor;"></span>
                             ${user.estado || 'Inactivo'}
                         </span>
                     </td>
                     <td style="padding: 1rem 1.5rem; text-align: right;">
                         <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                            ${isAdminMaestro ? `
+                            ${canManageUsers ? `
                             <button class="btn-edit-user" 
                                     data-id="${user.id}" 
                                     data-email="${user.email}" 
                                     data-rol="${user.rol || ''}" 
+                                    data-estado="${user.estado || 'Activo'}"
                                     style="background: none; border: none; cursor: pointer; font-size: 1.1rem;" 
-                                    title="Editar Rol">
+                                    title="Editar Usuario">
                                 ✏️
                             </button>
                             <button class="btn-delete-user" 
@@ -160,14 +175,15 @@ export const initUsers = async () => {
                 </tr>
             `).join('');
 
-            if (isAdminMaestro) {
+            if (canManageUsers) {
                 // Asignar eventos de edición
                 document.querySelectorAll('.btn-edit-user').forEach(btn => {
                     btn.onclick = () => {
                         const user = {
                             id: btn.dataset.id,
                             email: btn.dataset.email,
-                            rol: btn.dataset.rol
+                            rol: btn.dataset.rol,
+                            estado: btn.dataset.estado
                         };
                         openModal(user);
                     };
