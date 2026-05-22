@@ -11,7 +11,7 @@ import JsBarcode from "https://esm.sh/jsbarcode";
  */
 export const generarTicketPDF = async (data) => {
     try {
-        const { id, nombre, fecha, responsable, tipo } = data;
+        const { id, nombre, fecha, responsable, tipo, estado } = data;
         const folio = `AC-${Math.floor(1000 + Math.random() * 9000)}-${Date.now().toString().slice(-4)}`;
 
         const doc = new jsPDF({
@@ -62,6 +62,15 @@ export const generarTicketPDF = async (data) => {
         const splitNombre = doc.splitTextToSize(nombre, width - (margin * 2));
         doc.text(splitNombre, margin, y);
         y += (splitNombre.length * 12);
+
+        if (estado) {
+            y += 15;
+            doc.setFont("helvetica", "normal"); doc.setTextColor(100);
+            doc.text("ESTADO:", margin, y);
+            y += 12;
+            doc.setTextColor(0); doc.setFontSize(9);
+            doc.text(estado, margin, y);
+        }
 
         y += 15;
         doc.setFont("helvetica", "normal"); doc.setTextColor(100);

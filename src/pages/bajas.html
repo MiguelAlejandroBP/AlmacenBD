@@ -45,14 +45,27 @@
 
         <!-- Historial de Bajas -->
         <div class="card" style="padding: 0; overflow: hidden; border: none; box-shadow: var(--shadow);">
-            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; background: var(--bg-color);">
-                <h2 style="font-size: 1.3rem; margin: 0; color: var(--text-main);">Historial de Bajas</h2>
-                <div style="position: relative; width: 100%; max-width: 300px;">
-                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;">🔍</span>
-                    <input type="text" id="bajas-search" placeholder="Filtrar historial..." 
-                        style="width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--surface-color); color: white; font-size: 0.9rem; outline: none; transition: border-color 0.2s;"
-                        onfocus="this.style.borderColor='var(--primary-color)'"
-                        onblur="this.style.borderColor='var(--border-color)'">
+            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem; background: var(--bg-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <h2 style="font-size: 1.3rem; margin: 0; color: var(--text-main);">Historial de Bajas</h2>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; width: 100%; max-width: 500px;">
+                        <!-- Filtro por Estado -->
+                        <select id="filter-baja-status" style="padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--surface-color); color: white; font-size: 0.9rem; outline: none;">
+                            <option value="">Todos los Estados</option>
+                            <option value="Por Procesar">Por Procesar</option>
+                            <option value="En Revisión">En Revisión</option>
+                            <option value="Procesada">Procesada</option>
+                            <option value="Rechazada">Rechazada</option>
+                        </select>
+                        <!-- Buscador -->
+                        <div style="position: relative; flex: 1; min-width: 200px;">
+                            <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;">🔍</span>
+                            <input type="text" id="bajas-search" placeholder="Filtrar historial..." 
+                                style="width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background: var(--surface-color); color: white; font-size: 0.9rem; outline: none; transition: border-color 0.2s;"
+                                onfocus="this.style.borderColor='var(--primary-color)'"
+                                onblur="this.style.borderColor='var(--border-color)'">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div style="max-height: 600px; overflow-y: auto;">
@@ -61,8 +74,9 @@
                         <tr>
                             <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Fecha</th>
                             <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Producto</th>
+                            <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Estado</th>
                             <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700;">Motivo</th>
-                            <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700; text-align: right;">Evidencia</th>
+                            <th style="padding: 1.2rem 1.5rem; color: var(--text-main); font-weight: 700; text-align: right;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="bajas-table-body">

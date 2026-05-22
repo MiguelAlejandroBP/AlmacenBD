@@ -235,6 +235,24 @@ export const registerBaja = async (bajaData) => {
 };
 
 /**
+ * Actualiza el estado de una baja.
+ */
+export const updateBajaStatus = async (id, newStatus) => {
+    try {
+        const bajaRef = doc(db, BAJAS_COLLECTION, id);
+        await updateDoc(bajaRef, {
+            estado: newStatus,
+            fechaActualizacion: new Date().toISOString()
+        });
+        logEvent('AUDIT', 'Estado de baja actualizado', { id, newStatus });
+        return true;
+    } catch (error) {
+        console.error("Error al actualizar estado de baja:", error);
+        throw error;
+    }
+};
+
+/**
  * Suscribe a las bajas en tiempo real.
  */
 export const onBajasUpdate = (callback) => {
